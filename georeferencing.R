@@ -15,9 +15,6 @@ library(sf)
 library(tmap)
 library(tmaptools)
 
-# Step 3: Set your working directory 
-setwd("~/Library/CloudStorage/OneDrive-Personal/PH GIS/Labs/Lab3")
-
 
 ## Projection with the sf package 
 
@@ -92,8 +89,8 @@ NJ_prj <- st_transform(NJ, crs = st_crs(TRI))
 # Let's try it again 
 NJ_prj_join<- st_join(NJ_prj, TRI, left = TRUE) 
 
-NJ_prj_join %>% 
-group_by(COUNTY) %>% 
+NJ_prj_join |> 
+group_by(COUNTY) |> 
   summarize(total_emissions = sum(total_release)) -> NJ_TRI_total
 
 
@@ -119,6 +116,4 @@ tm_shape(NJ_TRI_total) +
               n = 4,
               palette = "YlOrBr",
               border.col = "black",
-              title = "Total Emissions")
-
-
+              title = "Total Emissions (lbs)")
